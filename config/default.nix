@@ -10,16 +10,16 @@ let
           cp ./* $out/
         '';
       };
-    in bulitins.map (file: "${configDir}/${file}")
+    in builtins.map (file: "${configDir}/${file}")
     (builtins.attrNames (builtins.readDir configDir));
 
   sourceConfigFiles = files:
-    builtins.concatStringSep "\n" (builtins.map (file:
+    builtins.concatStringsSep "\n" (builtins.map (file:
       (if pkgs.lib.strings.hasSuffix "lua" file then "luafile" else "source")
       + " ${file}") files);
 
-  vim = scrips2ConfigFiles "vim";
-  lua = scrips2ConfigFiles "lua";
+  vim = scripts2ConfigFiles "vim";
+  lua = scripts2ConfigFiles "lua";
 
-in builtins.concatStrinsSep "\n"
-(builtins.map (configs: sourceConfigFiles configs) [ vim lua])
+in builtins.concatStringsSep "\n"
+(builtins.map (configs: sourceConfigFiles configs) [ vim lua ])
