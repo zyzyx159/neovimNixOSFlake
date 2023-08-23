@@ -5,7 +5,7 @@ let
       pkgs.writeTextFile {
         name = pkgs.lib.strings.removeSuffix ".nix" file;
         text = import ./${dir}/${file} { inherit pkgs; };
-      }) (bulitins.attrNames (builtins.readDir ./${dir}));
+      }) (builtins.attrNames (builtins.readDir ./${dir}));
 
   scripts2ConfigFiles = dir:
     let
@@ -26,8 +26,9 @@ let
       + " ${file}") files);
 
   vim = scripts2ConfigFiles "vim";
+  vimnix = nixFiles2ConfigFiles "vimnix";
   lua = scripts2ConfigFiles "lua";
   luanix = nixFiles2ConfigFiles "luanix";
 
 in builtins.concatStringsSep "\n"
-(builtins.map (configs: sourceConfigFiles configs) [ vim lua luanix])
+(builtins.map (configs: sourceConfigFiles configs) [ vim vimnix lua luanix])
