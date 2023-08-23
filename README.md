@@ -16,3 +16,5 @@ To update the flake:
 Instructions provided by:
 - https://primamateria.github.io/blog/neovim-nix/#generate-lua-config-from-nix
 - https://primamateria.github.io/blog/neovim-nix-update/
+
+Changes for the sake of changes
