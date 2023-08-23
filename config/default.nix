@@ -15,7 +15,11 @@ let
 
   sourceConfigFiles = files:
     builtins.concatStringSep "\n" (builtins.map (file:
-      "source ${file}") files);
+      (if pkgs.lib.strings.hasSuffix "lua" file then "luafile" else "source")
+      + " ${file}") files);
 
   vim = scrips2ConfigFiles "vim";
-in sourveVonfigFiels vim
+  lua = scrips2ConfigFiles "lua";
+
+in builtins.concatStrinsSep "\n"
+(builtins.map (configs: sourceConfigFiles configs) [ vim lua])

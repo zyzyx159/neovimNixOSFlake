@@ -9,11 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, neovim }: 
+  outputs = { self, nixpkgs, neovim }:
     let
       overlayFlakeInputs = prev: final: {
         neovim = neovim.packages.x86_64-linux.neovim;
-      }
+      };
 
       overlayMyNeovim = prev: final: {
         myNeovim = import ./packages/myNeovim.nix {
@@ -33,13 +33,4 @@
         program = "${pkgs.myNeovim}/bin/nvim";
       };
     };
-  }
-
-{
-    packages.x86_64-linux.default = neovim.packages.x86_64-linux.neovim;
-    apps.x86_64-linux.default = {
-      type = "app";
-      program = "${neovim.packages.x86_64-linux.neovim}/bin/nvim";
-    };
-  };
 }
